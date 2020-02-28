@@ -1,0 +1,28 @@
+<main class="py-5">
+    <section class="mb-5">
+        <div class="container">
+            <h2 class="mb-4">Materias</h2>
+            <table class="table table-striped">
+                <thead class="thead bg-primary text-white">
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Año</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subject of subjectList">
+                        <td>{{ subject.id }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td>{{ subject.year }}</td>
+                        <td><a class="btn btn-success btn-sm" [routerLink]="['/subjectView/', subject.id]">Ver</a></td>
+                        <td><button class="btn btn-danger btn-sm" (click)="delete(subject.id)">Borrar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <app-paginator *ngIf="totalSubjects > 5" [totalResults]="totalSubjects" [pageNumber]="page" (pageChange)="onPageChange($event)"></app-paginator>
+        </div>
+    </section>
+</main>

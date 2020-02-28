@@ -1,0 +1,47 @@
+<nav *ngIf="logged && !student" class="navbar navbar-expand-lg navbar-dark bg-primary">
+     <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="active">Crear Cuenta</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/studentAdd']" routerLinkActive="active">Agregar Estudiante</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/studentList']" routerLinkActive="active">Listar Estudiantes</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/subjectAdd']" routerLinkActive="active">Agregar Materia</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/subjectList']" routerLinkActive="active">Listar Materias</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/cohortAdd']" routerLinkActive="active">Agregar Cohorte</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/cohortList']" routerLinkActive="active">Listar Cohortes</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" (click)="getUserManual()" routerLinkActive="active" style="cursor: pointer">Ayuda</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" (click)="logout()" routerLinkActive="active" style="cursor: pointer">Cerrar Sesión</a>
+          </li>
+     </ul>
+</nav>
+
+<nav *ngIf="logged && student" class="navbar navbar-expand-lg navbar-dark bg-primary">
+     <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/inscriptionList', dni]" routerLinkActive="active">Estado Académico</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" [routerLink]="['/inscriptionAdd', dni]" routerLinkActive="active">Inscripciones</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" (click)="logout()" routerLinkActive="active" style="cursor: pointer">Cerrar Sesión</a>
+          </li>
+     </ul>
+</nav>
+
+<router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>

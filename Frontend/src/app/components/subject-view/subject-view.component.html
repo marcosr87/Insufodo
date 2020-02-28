@@ -1,0 +1,43 @@
+<main class="py-5">
+    <section class="mb-5">
+        <div class="container">
+            <h3 class="mb-3">{{ subject.name }}</h3>
+            <div class="bg-light p-4">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Código: </label>
+                        {{ subject.id }}
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Año: </label>
+                        {{ subject.year }}
+                    </div>
+                </div>
+            </div>
+            <div class="bg-light p-4" *ngIf="subject.correlatives !== undefined && subject.correlatives.length > 0">
+                <h5 class="mb-3">Correlativas</h5>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <thead class="thead bg-primary text-white">
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Año</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subject of subject.correlatives">
+                                    <td>{{ subject.id }}</td>
+                                    <td>{{ subject.name }}</td>
+                                    <td>{{ subject.year }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            <hr class="mb-4">
+            <a class="btn btn-success btn-sm" [routerLink]="['/subjectEdit/', subject.id]">Editar</a>
+        </div>
+    </section>
+</main>

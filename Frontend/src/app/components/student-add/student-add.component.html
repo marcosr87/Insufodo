@@ -1,0 +1,96 @@
+<main class="py-5">
+    <section class="mb-5">
+        <form [formGroup]="studentForm">
+            <div class="container">
+                <h3 class="mb-3">Agregar Estudiante</h3>
+                <div class="bg-light p-4">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>DNI</label>
+                            <input formControlName="dni" class="form-control" maxlength="8" onpaste="return false">
+                            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)">
+                                <p *ngIf="dni.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="dni.errors.pattern" style="font-size: small; color: red">solo números</p>
+                                <p *ngIf="dni.errors.minlength" style="font-size: small; color: red">mínimo 8 números</p>
+                                <p *ngIf="dni.errors.dniTaken" style="font-size: small; color: red">dni ya existente</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Apellido</label>
+                            <input formControlName="lastName" class="form-control" onpaste="return false">
+                            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                                <p *ngIf="lastName.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Nombre</label>
+                            <input formControlName="firstName" class="form-control" onpaste="return false">
+                            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                                <p *ngIf="firstName.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Email</label>
+                            <input type="email" formControlName="email" class="form-control" onpaste="return false">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                                <p *ngIf="email.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="email.errors.email" style="font-size: small; color: red">formato inválido</p>
+                                <p *ngIf="email.errors.emailTaken" style="font-size: small; color: red">email ya existente</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Cohorte</label>
+                            <input formControlName="cohort" class="form-control" maxlength="4" onpaste="return false">
+                            <div *ngIf="cohort.invalid && (cohort.dirty || cohort.touched)">
+                                <p *ngIf="cohort.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="cohort.errors.pattern" style="font-size: small; color: red">solo números</p>
+                                <p *ngIf="cohort.errors.minlength" style="font-size: small; color: red">mínimo 4 números</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Estado</label>
+                            <select formControlName="status" class="form-control" (change)="statusChange($event)">
+                                <option value="Activo" [selected]="true">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Género</label>
+                            <select formControlName="gender" class="form-control" (change)="genderChange($event)">
+                                <option value=""></option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Dirección</label>
+                            <input formControlName="address" class="form-control" onpaste="return false">
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Teléfono</label>
+                            <input formControlName="phone" class="form-control" maxlength="10" onpaste="return false">
+                            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+                                <p *ngIf="phone.errors.pattern" style="font-size: small; color: red">solo números</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <button type="button" class="btn btn-primary" [disabled]="!studentForm.valid" (click)="addStudent()">Agregar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>

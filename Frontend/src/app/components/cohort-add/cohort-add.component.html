@@ -1,0 +1,77 @@
+<main class="py-5">
+    <section class="mb-5">
+        <form [formGroup]="cohortForm">
+            <div class="container">
+                <h3 class="mb-3">Agregar Cohorte</h3>
+                <div class="bg-light p-3">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>Materia</label>
+                            <select formControlName="subjects" class="form-control">
+                                <option *ngFor="let subject of subjectList" [value]="subject.id" (click)="subjectChange($event.target.value)">{{subject.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label>Tipo</label>
+                            <select formControlName="type" class="form-control" (change)="typeChange($event)">
+                                <option value="Cursada" [selected]="true">Cursada</option>
+                                <option value="Final">Final</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label>Cupo</label>
+                            <input type="number" formControlName="quote" class="form-control" maxlength="2" onpaste="return false">
+                            <div *ngIf="quote.invalid && (quote.dirty || quote.touched)">
+                                <p *ngIf="quote.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="quote.errors.pattern" style="font-size: small; color: red">solo números del 1 al 99</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label>Año</label>
+                            <input formControlName="year" class="form-control" maxlength="4" onpaste="return false">
+                            <div *ngIf="year.invalid && (year.dirty || year.touched)">
+                                <p *ngIf="year.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="year.errors.pattern" style="font-size: small; color: red">solo números</p>
+                                <p *ngIf="year.errors.minlength" style="font-size: small; color: red">mínimo 4 números</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>Fecha Final</label>
+                            <input formControlName="date" class="form-control" onpaste="return false">
+                            <div *ngIf="date.invalid && (date.dirty || date.touched)">
+                                <p *ngIf="date.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label>Día</label>
+                            <select formControlName="weekday" class="form-control" (change)="weekdayChange($event)">
+                                <option value="Lunes" [selected]="true">Lunes</option>
+                                <option value="Martes">Martes</option>
+                                <option value="Miércoles">Miércoles</option>
+                                <option value="Jueves">Jueves</option>
+                                <option value="Viernes">Viernes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label>Hora</label>
+                            <input formControlName="schedule" class="form-control" maxlength="2" onpaste="return false">
+                            <div *ngIf="schedule.invalid && (schedule.dirty || schedule.touched)">
+                                <p *ngIf="schedule.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="schedule.errors.pattern" style="font-size: small; color: red">solo números</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-3">
+                    <button class="btn btn-primary" [disabled]="!cohortForm.valid" (click)="addCohort()">Agregar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>

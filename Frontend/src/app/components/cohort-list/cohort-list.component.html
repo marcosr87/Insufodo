@@ -1,0 +1,36 @@
+<main class="py-5">
+    <section class="mb-5">
+        <div class="container">
+            <h2 class="mb-4">Cohortes</h2>
+            <table class="table table-striped">
+                <thead class="thead bg-primary text-white">
+                    <tr>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Cupo</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Fecha Final</th>
+                        <th scope="col">Día</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cohort of cohortList">
+                        <td *ngIf="cohort.subject !== undefined">{{ cohort.subject.name }}</td>
+                        <td>{{ cohort.type }}</td>
+                        <td>{{ cohort.quote }}</td>
+                        <td>{{ cohort.year }}</td>
+                        <td>{{ cohort.date }}</td>
+                        <td>{{ cohort.weekday }}</td>
+                        <td>{{ cohort.schedule }}</td>
+                        <td><a class="btn btn-success btn-sm" [routerLink]="['/cohortView/', cohort.id]">Ver</a></td>
+                        <td><button class="btn btn-danger btn-sm" (click)="delete(cohort.id)">Borrar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <app-paginator *ngIf="totalCohorts > 5" [totalResults]="totalCohorts" [pageNumber]="page" (pageChange)="onPageChange($event)"></app-paginator>
+        </div>
+    </section>
+</main>

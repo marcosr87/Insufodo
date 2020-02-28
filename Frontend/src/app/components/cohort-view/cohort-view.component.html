@@ -1,0 +1,84 @@
+<main class="py-5">
+    <section class="mb-5">
+        <div class="container">
+            <h3 class="mb-3" *ngIf="cohort.subject !== undefined">{{ cohort.type }} {{ cohort.subject.name }}
+                {{ cohort.year }}</h3>
+            <div class="bg-light p-3">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Cupo: </label>
+                        {{ cohort.quote }}
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Fecha Final: </label>
+                        {{ cohort.date }}
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>Día: </label>
+                        {{ cohort.weekday }}
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label>Hora: </label>
+                        {{ cohort.schedule }}
+                    </div>
+
+                    <div class="col-lg-2">
+                        <a class="btn btn-success btn-sm" [routerLink]="['/cohortEdit/', cohort.id]">Editar</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-3">
+            <div class="bg-light p-3" *ngIf="cohort.inscriptions !== undefined && cohort.inscriptions.length > 0">
+                <h5 class="mb-3">Inscriptos: {{ cohort.inscriptions.length }}</h5>
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead class="thead bg-primary text-white">
+                            <tr>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">DNI</th>
+                                <th scope="col">Nota</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let inscription of cohort.inscriptions">
+                                <td *ngIf="inscription.student !== undefined">{{ inscription.student.lastName }}</td>
+                                <td *ngIf="inscription.student !== undefined">{{ inscription.student.firstName }}</td>
+                                <td *ngIf="inscription.student !== undefined">{{ inscription.student.dni }}</td>
+                                <td *ngIf="inscription.student !== undefined">{{ inscription.qualification }}</td>
+                                <td *ngIf="inscription.student !== undefined">{{ inscription.qualificationDate }}</td>
+                                <td><button class="btn btn-success btn-sm" [value]="inscription.id" (click)="setQualification(qualify, $event.target.value)">Calificar</button></td>
+                                <td><button class="btn btn-danger btn-sm" [value]="inscription.id" (click)="deleteInscription($event.target.value)">Borrar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<ng-template #qualify let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Calificar Estudiante</h4>
+        <button class="close" aria-label="Close" (click)="modal.dismiss()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="inscriptionForm">
+            <label>Ingrese Nota:</label>
+            <input formControlName="qualification" name="qualification" class="form-control" maxlength="2" onpaste="return false" ngbAutofocus>
+            <div *ngIf="qualification.invalid && (qualification.dirty || qualification.touched)">
+                <p *ngIf="qualification.errors.pattern" style="font-size: small; color: red">solo números del 0 al 99</p>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" [disabled]="!inscriptionForm.valid" (click)="modal.close()">Guardar</button>
+    </div>
+</ng-template>

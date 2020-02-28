@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" (click)="getStudentManual()" routerLinkActive="active" style="cursor: pointer">Ayuda</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Iniciar Sesión</a>
+    </li>
+  </ul>
+</nav>
+<main>
+  <section>
+    <div style="text-align: center; padding-top: 5%">
+      <img src="assets/img/insufodo.jpg" style="width: 250px">
+    </div><br>
+    <form [formGroup]="loginForm" class="horizontal-form" style="text-align: center">
+      <div class="form-group">
+        <div class="col-sm-3" style="display: inline-block">
+          <input type="email" formControlName="name" class="form-control" placeholder="Usuario" onpaste="return false">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)">
+            <p *ngIf="name.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+            <p *ngIf="name.errors.email" style="font-size: small; color: red">formato inválido</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-3" style="display: inline-block">
+          <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" maxlength="8" onpaste="return false">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)">
+            <p *ngIf="password.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-3" style="display: inline-block">
+          <button class="btn btn-primary" [disabled]="!loginForm.valid" (click)="login()">Iniciar Sesión</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</main>

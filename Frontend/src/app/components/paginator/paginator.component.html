@@ -1,0 +1,5 @@
+<div class="paginator" style="text-align: center">
+    <div class="pages">
+        <button *ngFor="let page of pages; let i = index" class="btn btn-dark" style="margin-left: 5px" (click)="clickPage(i)">{{i + 1}}</button>
+    </div>
+</div>

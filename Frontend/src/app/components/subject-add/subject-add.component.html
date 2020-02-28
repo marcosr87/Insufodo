@@ -1,0 +1,64 @@
+<main class="py-5">
+    <section class="mb-5">
+        <form [formGroup]="subjectForm">
+            <div class="container">
+                <h3 class="mb-3">Agregar Materia</h3>
+                <div class="bg-light p-4">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Nombre</label>
+                            <input formControlName="name" class="form-control" onpaste="return false">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                                <p *ngIf="name.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="name.errors.nameTaken" style="font-size: small; color: red">materia ya existente</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Año</label>
+                            <input type="number" formControlName="year" class="form-control" maxlength="1" (change)="yearChange($event)" onpaste="return false">
+                            <div *ngIf="year.invalid && (year.dirty || year.touched)">
+                                <p *ngIf="year.errors.required" style="font-size: small; color: red">campo obligatorio </p>
+                                <p *ngIf="year.errors.pattern" style="font-size: small; color: red">solo números del 1 al 5</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Agregar Correlativa</label>
+                            <select formControlName="subjects" class="form-control">
+                                <option *ngFor="let subject of subjectList" [value]="subject.id" (click)="addCorrelative($event)">{{ subject.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-light p-4" *ngIf="subject.correlatives.length > 0">
+                    <h5 class="mb-3">Correlativas</h5>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <thead class="thead bg-primary text-white">
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Año</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subject of subject.correlatives">
+                                    <td>{{ subject.id }}</td>
+                                    <td>{{ subject.name }}</td>
+                                    <td>{{ subject.year }}</td>
+                                    <td><button class="btn btn-danger" (click)="deleteCorrelative(subject)">Borrar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-light p-4">
+                    <hr class="mb-4">
+                    <button class="btn btn-primary" [disabled]="!subjectForm.valid" (click)="addSubject()">Agregar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>

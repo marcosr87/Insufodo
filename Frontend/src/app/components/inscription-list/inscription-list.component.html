@@ -1,0 +1,79 @@
+<main class="py-5">
+    <section class="mb-5">
+        <div class="container">
+            <h3 class="mb-3">{{ student.lastName }} {{ student.firstName }}</h3>
+            <div class="bg-light p-3">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>DNI: </label>
+                        {{ student.dni }}
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Email: </label>
+                        {{ student.email }}
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Cohorte: </label>
+                        {{ student.cohort }}
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Estado: </label>
+                        {{ student.status }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label>Género: </label>
+                        {{ student.gender }}
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Dirección: </label>
+                        {{ student.address }}
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label>Teléfono: </label>
+                        {{ student.phone }}
+                    </div>
+                </div>
+            </div>
+            <div class="bg-light p-4" *ngIf="academicStatusList !== undefined && academicStatusList.length > 0">
+                <h5 class="mb-3">Estado Académico</h5>
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead class="thead bg-primary text-white">
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Materia</th>
+                                <th scope="col">Cohorte Cursada</th>
+                                <th scope="col">Nota Cursada</th>
+                                <th scope="col">Fecha Nota Cursada</th>
+                                <th scope="col">Cohorte Final</th>
+                                <th scope="col">Nota Final</th>
+                                <th scope="col">Fecha Nota Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let academicStatus of academicStatusList">
+                                <td *ngIf="academicStatus.subject !== undefined">{{ academicStatus.subject.id }}</td>
+                                <td *ngIf="academicStatus.subject !== undefined">{{ academicStatus.subject.name }}</td>
+                                <td *ngIf="academicStatus.course !== undefined">{{ academicStatus.course.cohort.year }}</td>
+                                <td *ngIf="academicStatus.course !== undefined">{{ academicStatus.course.qualification }}</td>
+                                <td *ngIf="academicStatus.course !== undefined">{{ academicStatus.course.qualificationDate }}</td>
+                                <td>{{ academicStatus.final !== undefined ? academicStatus.final.cohort.year : "" }}</td>
+                                <td>{{ academicStatus.final !== undefined ? academicStatus.final.qualification : "" }}</td>
+                                <td>{{ academicStatus.final !== undefined ? academicStatus.final.qualificationDate : "" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h5 class="mb-3" *ngIf="average !== 0">Promedio: {{ average }}</h5>
+            </div>
+        </div>
+    </section>
+</main>

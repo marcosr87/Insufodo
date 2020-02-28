@@ -1,0 +1,29 @@
+<main class="py-5">
+    <section class="mb-5">
+        <form [formGroup]="inscriptionForm">
+            <div class="container">
+                <h3 class="mb-3">Inscripción</h3>
+                <div class="bg-light p-3">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Tipo</label>
+                            <select formControlName="type" class="form-control" (change)="typeChange($event)">
+                                <option value="Cursada" [selected]="true">Cursada</option>
+                                <option value="Final">Final</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label>Cohorte</label>
+                            <select formControlName="cohorts" class="form-control">
+                                <option *ngFor="let cohort of cohortList" [value]="cohort.id" (click)="cohortChange($event.target.value)"><label *ngIf="cohort.subject !== undefined">{{ cohort.year }} {{ cohort.subject.name }}</label></option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="mb-3">
+                    <button class="btn btn-primary" [disabled]="!inscriptionForm.valid" (click)="addInscription()">Agregar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>

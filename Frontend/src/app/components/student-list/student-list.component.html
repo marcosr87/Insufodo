@@ -1,0 +1,40 @@
+<main class="py-5">
+    <section class="mb-5">
+        <div class="container">
+            <h2 class="mb-4">Estudiantes</h2>
+            <table class="table table-striped">
+                <thead class="thead bg-primary text-white">
+                    <tr>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Cohorte</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Género</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of studentList">
+                        <td>{{ student.dni }}</td>
+                        <td>{{ student.lastName }}</td>
+                        <td>{{ student.firstName }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.cohort }}</td>
+                        <td>{{ student.status }}</td>
+                        <td>{{ student.gender }}</td>
+                        <td>{{ student.address }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td><a class="btn btn-success btn-sm" [routerLink]="['/studentView/', student.id]">Ver</a></td>
+                        <td><button class="btn btn-danger btn-sm" (click)="delete(student.id)">Borrar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <app-paginator *ngIf="totalStudents > 5" [totalResults]="totalStudents" [pageNumber]="page" (pageChange)="onPageChange($event)"></app-paginator>
+        </div>
+    </section>
+</main>

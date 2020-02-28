@@ -1,0 +1,53 @@
+<main class="py-5">
+    <section class="mb-5">
+        <form [formGroup]="signupForm">
+            <div class="container">
+                <h3 class="mb-3">Crear Cuenta</h3>
+                <div class="bg-light p-4">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Usuario</label>
+                            <input type="email" formControlName="name" class="form-control" onpaste="return false">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                                <p *ngIf="name.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                                <p *ngIf="name.errors.email" style="font-size: small; color: red">formato inválido</p>
+                                <p *ngIf="name.errors.emailTaken" style="font-size: small; color: red">usuario ya existente</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Contraseña</label>
+                            <input type="password" (change)="passwordChange($event)" formControlName="password" class="form-control" maxlength="8" onpaste="return false">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                                <p *ngIf="password.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                            </div>
+                            <div *ngIf="passwordsDoNotMatch() && (password.dirty || password.touched)">
+                                <p style="font-size: small; color: red">las contraseñas no coinciden</p>
+                            </div>
+                            <div *ngIf="invalidPassword() && (password.dirty || password.touched)">
+                                <p style="font-size: small; color: red">debe contener al menos una letra</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Confirmar Contraseña</label>
+                            <input type="password" (change)="confirmChange($event)" formControlName="confirmPassword" class="form-control" maxlength="8" onpaste="return false">
+                            <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+                                <p *ngIf="confirmPassword.errors.required" style="font-size: small; color: red">campo obligatorio</p>
+                            </div>
+                            <div *ngIf="passwordsDoNotMatch() && (password.dirty || password.touched)">
+                                <p style="font-size: small; color: red">las contraseñas no coinciden</p>
+                            </div>
+                            <div *ngIf="invalidPassword() && (password.dirty || password.touched)">
+                                <p style="font-size: small; color: red">debe contener al menos una letra</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr class="mb-3">
+                    <button class="btn btn-primary" [disabled]="!signupForm.valid" (click)="signup()">Crear Cuenta</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
