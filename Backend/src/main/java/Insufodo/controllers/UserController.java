@@ -41,7 +41,7 @@ public class UserController {
             @ApiResponse(code = 204, message = "usuario no existente"),
             @ApiResponse(code = 409, message = "usuario ya existente")
     })
-    public ResponseEntity<Object> identity(@RequestParam final @NotNull String email) {
+    public ResponseEntity identity(@RequestParam final @NotNull String email) {
         return us.identity(email);
     }
 
